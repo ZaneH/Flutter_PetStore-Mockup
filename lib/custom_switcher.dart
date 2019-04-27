@@ -48,7 +48,7 @@ class _CustomSwitcherState extends State<CustomSwitcher>
 
     switcherProgress = Tween<double>(begin: 8, end: 35).animate(
       CurvedAnimation(
-        curve: Curves.easeOutCirc,
+        curve: Curves.easeInOutQuint,
         parent: _animationController,
       ),
     );

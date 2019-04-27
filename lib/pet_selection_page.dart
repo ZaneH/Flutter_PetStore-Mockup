@@ -109,6 +109,8 @@ class _PetSelectionPageState extends State<PetSelectionPage> {
         controller: _pc
           ..addListener(() {
             // if the card ever fully changes, setState to update dot indicators
+            if (_currentCard == _pc.page.round()) { return; }
+            
             setState(() {
               _currentCard = _pc.page.round();
             });
