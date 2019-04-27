@@ -100,7 +100,7 @@ class _PetSelectionPageState extends State<PetSelectionPage> {
     petCards.add(_buildPetCard(Pet("Dog", 15)));
     petCards.add(_buildPetCard(Pet("Fish", 5)));
     petCards.add(_buildPetCard(Pet("Cat", 15)));
-    petCards.add(_buildPetCard(Pet("Pigglet", 20)));
+    petCards.add(_buildPetCard(Pet("Piglet", 20)));
     petCards.add(_buildPetCard(Pet("Dragon", 115)));
 
     return SizedBox.fromSize(
