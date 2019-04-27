@@ -25,6 +25,27 @@ class _PetSelectionPageState extends State<PetSelectionPage> {
     petCards = [];
     _currentCard = 0;
     _pc = PageController(viewportFraction: 0.88);
+
+    // add listener to page controller
+    _pc.addListener(() {
+      // if the card ever fully changes, setState to update dot indicators
+      if (_currentCard == _pc.page.round()) {
+        return;
+      }
+
+      setState(() {
+        _currentCard = _pc.page.round();
+      });
+    });
+
+    // listener for BLoC changes
+    ShoppingCartBloc _scBloc = BlocProvider.of(context);
+    _scBloc.state.listen((state) {
+      setState(() {
+        // we don't need to do anything
+        // flutter rebuilds all the needed widgets
+      });
+    });
   }
 
   // this builds the PageView and even its containing parent
@@ -106,15 +127,7 @@ class _PetSelectionPageState extends State<PetSelectionPage> {
     return SizedBox.fromSize(
       size: Size(MediaQuery.of(context).size.width, 200),
       child: PageView.builder(
-        controller: _pc
-          ..addListener(() {
-            // if the card ever fully changes, setState to update dot indicators
-            if (_currentCard == _pc.page.round()) { return; }
-            
-            setState(() {
-              _currentCard = _pc.page.round();
-            });
-          }),
+        controller: _pc,
         itemCount: petCards.length,
         itemBuilder: (_, idx) {
           return petCards[idx];
@@ -314,7 +327,9 @@ class _PetSelectionPageState extends State<PetSelectionPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text("Payment Plans", style: iButtonStyle),
-                        SizedBox(width: 8,),
+                        SizedBox(
+                          width: 8,
+                        ),
                         Icon(
                           Icons.arrow_forward,
                           color: Colors.white,
@@ -329,20 +344,6 @@ class _PetSelectionPageState extends State<PetSelectionPage> {
         ),
       ),
     );
-  }
-
-  @override
-  void didChangeDependencies() {
-    // listener for BLoC changes
-    ShoppingCartBloc _scBloc = BlocProvider.of(context);
-    _scBloc.state.listen((state) {
-      setState(() {
-        // we don't need to do anything
-        // flutter rebuilds all the needed widgets
-      });
-    });
-
-    super.didChangeDependencies();
   }
 
   @override
